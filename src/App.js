@@ -3,25 +3,20 @@ import Section from './Components/Section';
 import Button from './Components/FeedbackCard/FeedbackOptions';
 import Statistics from './Components/Statistics';
 import Notification from './Components/Notification';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    countTotalFeedback(good, bad, neutral);
-    countPositiveFeedbackPercentage(good, total);
-  }, [good, bad, neutral, total, percentage]);
 
   const countTotalFeedback = (good, bad, neutral) => {
-    setTotal(good + bad + neutral);
+    const total = good + bad + neutral;
+    return total;
   };
   const countPositiveFeedbackPercentage = (good, total) => {
-    setPercentage(Math.round((100 * good) / total));
+    const percentage = Math.round((100 * good) / total);
+    return percentage;
   };
 
   const onLeaveFeedback = e => {
@@ -41,7 +36,8 @@ function App() {
         return;
     }
   };
-
+  const total = countTotalFeedback(good, neutral, bad);
+  const percentage = countPositiveFeedbackPercentage(good, total);
   return (
     <div className="App">
       <Section title="Please leave feedback">
